@@ -1,0 +1,285 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<title>Free Guidance Website Template | Contact :: w3layouts</title>
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+  <link rel="stylesheet" href="/static/select/chosen.css">
+  <style type="text/css" media="all">
+    /* fix rtl for demo */
+    .chosen-rtl .chosen-drop { left: -9000px; }
+  </style>
+
+<link href="/static/multiple-select.css" rel="stylesheet"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates' rel='stylesheet' type='text/css'>
+<script src="/static/jquery.multiple.select.js"></script>
+<script src="/static/select/chosen.jquery.js" type="text/javascript"></script>
+<script src="/static/select/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+
+<style type="text/css" media="screen">
+/*====================================================
+    - HTML Table Filter stylesheet
+=====================================================*/
+
+.list-section{
+    width:80%; font-size:12px;
+    border:1px solid #ccc;
+    margin-left: -375px;
+}
+.paging-nav {
+  text-align: right;
+  padding-top: 2px;
+}
+
+.paging-nav a {
+  margin: auto 1px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 1px 7px;
+  background: #FA8D03;
+  color: white;
+  border-radius: 3px;
+}
+
+.paging-nav .selected-page {
+  background: #187ed5;
+  font-weight: bold;
+}
+
+.paging-nav,
+#table4 {
+  width: 80%;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  margin-left:100px;
+}
+div.tools{ margin:5px; }
+div.tools input{ background-color:#f4f4f4; border:0px outset #f4f4f4; margin:2px; }
+th{ background-color:#FA8D03; color:#FFF; padding:2px; border:1px solid #ccc; }
+td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
+
+</style>
+
+
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=487269014776211";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script type="text/javascript">
+			$(document).ready(function(){
+				$('table#table4').tableSearch({
+					searchText:'Search Table',
+					searchPlaceHolder:'Input Value'
+				});
+			});
+</script>
+
+
+{% for thesis  in records %}
+{% if thesis.key.id()==id %}
+
+<div class="header-bg">
+	<div class="wrap"> 
+		<div class="total-box">
+				<div class="total">
+					<div class="header_top">
+				     	<div class="menu">
+				     		<ul>
+						    	<li class="active"><a href="/home">Home</a></li>
+				                  <li><a href="about.html">About</a></li>
+				                  <li><a href="/thesis/home">THESES LIBRARY</a></li>
+				                  <li><a href="/student/home">STUDENT</a></li>
+				                  <li><a href="/faculty/home">FACULTY</a></li>
+				                  <li><a href="/university/home">UNIVERSITY</a></li>
+				                  <li><a href="/college/home">COLLEGE</a></li>
+				                  <li><a href="{{url}}">{{url_linktext}}</a></li>
+						    	<div class="clear"></div>
+			     			</ul>
+				     	</div>
+				     	<ul class="follow_icon">
+							<li><a href="#" style="opacity: 1;"><img src="/images/fb.png" alt=""></a></li>
+							<li><a href="#" style="opacity: 1;"><img src="/images/tw.png" alt=""></a></li>
+							<li><a href="#" style="opacity: 1;"><img src="/images/rss.png" alt=""></a></li>
+						</ul>
+		     			<div class="clear"></div>
+		     	</div>
+			     <div class="header-bottom">
+					 <div class="log">
+						<h1><a href="index.html">{{thesis.title}}</a></p>
+					 </div>
+					
+					<div class="clear"></div> 
+				</div>
+			</div>	
+		</div>
+	 </div>
+</div>
+
+	<div class="banner-box">
+		<div class="wrap">
+			<div class="main-top">
+				<div class="main">
+			    <div class="section group">
+				<div class="col span_4_of_3">
+
+				  <div class="contact-form">
+
+					    	<div>
+						    	<span><label>Year Published :</label></span>
+						   		<span><input type="text" name="year"  value="{{thesis.year}}" class="textbox" readonly></span>
+						    </div>
+						    <div>
+						    	<span><label>Thesis Title</label></span>
+						    	<span><input type="text" name="title"  value="{{thesis.title}}"  class="textbox" readonly></span>
+						    </div>
+						     <div>
+						    	<span> <label>Subtitle</label> </span>
+						    	<span><input type="text" name="sub"    value="{{thesis.subtitle}}" class="textbox" readonly></span>
+						    </div>
+						    <div>
+						    	<span><label>Abstract</label></span>
+						    	<span><textarea name= "abstract" Rows="3" cols="40" readonly > {{thesis.abstract}} </textarea></span>
+						    </div>
+						  
+						    <div>
+									<span><label>University / College /Department</label></span>
+									<span><input type="text" name="department"    value="{{thesis.department_key.get().college_key.get().university_key.get().name }} / {{thesis.department_key.get().college_key.get().name }} / {{thesis.department_key.get().name }}" class="textbox" readonly></span>
+									
+							</div>
+						    
+						 
+						    <div>
+						    	<span><label>Adviser</label></span>
+						    	<span><input type="text" name="adviser"    value="{{thesis.adviser_key.get().name}}" class="textbox" readonly></span>
+						    </div>
+						    <div>
+
+						    	<span><label>Proponents</label></span>
+						    	{% for keys in studs%}
+                   								 <a href="/student/ {{studs[keys]}}"><input type="text" class="thesis_proponent" value="{{studs[keys].first_name}} {{studs[keys].middle_name}} {{studs[keys].last_name}}"></input></a>
+                				{% endfor %}
+
+						    </div>
+						     <div>
+						    	<span><label>Section</label></span>
+						    	<span><input type="text" name="section"    value="{{thesis.section}}" class="textbox" readonly></span>
+						    </div>
+
+					
+					    </form>
+				  </div>
+  				</div>
+				
+				 <div class="clear"></div> 
+			  	
+
+				  <div class="col span_1_of_3">
+      					<div  data-href="http://localhost:8080/thesis/{{thesis.key.id()}}" class="fb-comments" data-numposts="10"></div>
+				 </div>
+
+				 
+				  			
+{% endif %}          
+{% endfor %}			
+                <table id="table4" class="list-section" style"display:none">
+                <tr>
+                    <th>Year</th>
+                    <th>University</th>
+                    <th>College</th>
+                    <th>Department</th>
+                    <th>Title</th>
+                    <th>Abstract</th>
+                    <th>Adviser</th>
+
+                    <th>Options</th>
+                </tr>
+               
+
+             	{% for thesis  in records %}
+                <tr>
+                    <td> {{thesis.year}}</td>
+                    <td> {{thesis.university_name}}</td>
+                    <td>{{thesis.college_name}}</td>
+                    <td> {{thesis.department_name}}</td>
+                    <td> {{thesis.title}} </td>
+                    <td> {{thesis.abstract}} </td>
+                    <td> {{thesis.adviser_key.get().name}} </td>
+                                   
+                    <td> <a href ="/thesis/{{thesis.key.id()}}"> View </a></br>
+                         <a href ="/thesis/edit/{{thesis.key.id()}}"> Edit </a></br>
+                         
+                         <a href ="/thesis/delete/{{thesis.key.id()}}"> Delete </a>
+                    </td>
+                </tr>
+                 
+ 				{% endfor %}
+                </table>
+              
+         
+
+<script type=text/javascript>
+(function($){
+	$.fn.tableSearch = function(options){
+		if(!$(this).is('table')){
+			return;
+		}
+		var tableObj = $(this),
+			searchText = (options.searchText)?options.searchText:'Search: ',
+			searchPlaceHolder = (options.searchPlaceHolder)?options.searchPlaceHolder:'',
+			divObj = $('<div style="float:right;">'+searchText+'</div><br /><br />'),
+			inputObj = $('<input type="text" placeholder="'+searchPlaceHolder+'" />'),
+			caseSensitive = (options.caseSensitive===true)?true:false,
+			searchFieldVal = '',
+			pattern = '';
+			(% for items in test %)
+			searchFieldVal = {{ items }};
+			(%endfor %)
+			pattern = (caseSensitive)?RegExp(searchFieldVal):RegExp(searchFieldVal, 'i');
+			tableObj.find('tbody tr').hide().each(function(){
+				var currentRow = $(this);
+				currentRow.find('td').each(function(){
+					if(pattern.test($(this).html())){
+						currentRow.show();
+						return false;
+					}
+				});
+			});
+	
+		tableObj.before(divObj.append(inputObj));
+		return tableObj;
+	}
+}(jQuery));		
+</script>
+</div>
+</div>
+</div>
+			  </div>
+			</div>
+
+</body>
+
+
+
+	
+<script type="text/javascript" src='/static/script.js'></script>
+
+
+
+
+</html>
+
+    	
+    	
+            

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>Free Guidance Website Template | Contact :: w3layouts</title>
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="/static/style.css">
+
+<script type="text/javascript" src='https://code.jquery.com/jquery-2.1.4.min.js'></script> 
+
+<style type="text/css" media="screen">
+/*====================================================
+    - HTML Table Filter stylesheet
+=====================================================*/
+@import "/table_filter/filtergrid.css";
+
+/*====================================================
+    - General html elements
+=====================================================*/
+
+.list-section{
+    width:125%; font-size:12px;
+    border:1px solid #ccc;
+    margin-left: -375px;
+}
+div.tools{ margin:5px; }
+div.tools input{ background-color:#f4f4f4; border:0px outset #f4f4f4; margin:2px; }
+th{ background-color:#FA8D03; color:#FFF; padding:2px; border:1px solid #ccc; }
+td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
+
+</style>
+<script language="javascript" type="text/javascript" src="/table_filter/actb.js"></script><!-- External script -->
+<script language="javascript" type="text/javascript" src="/table_filter/tablefilter.js"></script>
+</head>
+<body>
+<div class="header-bg">
+    <div class="wrap"> 
+        <div class="total-box">
+                <div class="total">
+                    <div class="header_top">
+                        <div class="menu">
+                            <ul>
+
+                                <li class="active"><a href="/home">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="/thesis/home">THESES LIBRARY</a></li>
+                                <li><a href="/student/home">STUDENT</a></li>
+                                <li><a href="/faculty/home">FACULTY</a></li>
+                                <li><a href="/university/home">UNIVERSITY</a></li>
+                                <li><a href="/college/home">COLLEGE</a></li>
+                                <li><a href="{{url}}">{{url_linktext}}</a></li>
+                                <div class="clear"></div>
+                            </ul>
+                        </div>
+                        <ul class="follow_icon">
+                            <li><a href="#" style="opacity: 1;"><img src="/images/fb.png" alt=""></a></li>
+                            <li><a href="#" style="opacity: 1;"><img src="/images/tw.png" alt=""></a></li>
+                            <li><a href="#" style="opacity: 1;"><img src="/images/rss.png" alt=""></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                </div>
+                 <div class="header-bottom">
+                     <div class="logo">
+                        <h1><a href="index.html">University List</a></h1>
+                     </div>
+                    <div class="search">
+                           <form>
+                                <input type="text" value="">
+                                <input type="submit" value="">
+                          </form>
+                    </div>
+                    <div class="clear"></div> 
+                </div>
+            </div>  
+        </div>
+     </div>
+</div>
+<div class="banner-box">
+        <div class="wrap">
+            <div class="main-top">
+                <div class="main">
+                <div class="section group">
+                <div class="col span_3_of_3">
+    
+         
+                <table id="table4" class="list-section">
+                <tr>
+                    <th>Name</th>
+                    <th>Initials</th>
+                    <th>Option</th>
+                </tr>
+                {% for u in university %}
+                <tr>
+                    <td> {{u.name}}</td>
+                    <td> {{u.initials}} </td>
+                    <td> <a href ="/university/{{u.key.id()}}"> View </a>
+                        <a href ="/university/edit/{{u.key.id()}}"> Edit</a>
+                        <a href ="/university/delete/{{u.key.id()}}"> Delete</a></td>
+                </tr>
+                  {% endfor %}
+                </table>
+
+
+                          
+ <script type="text/javascript" src='/static/script.js'></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+    var table4_Props =  {
+                            col_0: "select",
+                            on_change: false,
+                            btn: true,
+                            btn_text: "go",
+                            enter_key: false,
+                            mod_filter_fn: function(){ alert('Searching Entries... Press Ok to Proceed'); TF_Filter('table4'); }
+                        };
+    setFilterGrid( "table4",table4_Props );
+//]]>
+</script>
+
+
+</div>
+            
+                 <div class="clear"></div> 
+              </div>
+              
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+</body>                                   
+    
+   
+
+
+<script type="text/javascript" src='/static/script.js'></script>
+
+</body>
+</html>

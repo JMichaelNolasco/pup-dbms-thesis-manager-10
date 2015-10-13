@@ -1,0 +1,206 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<title>Free Guidance Website Template | Contact :: w3layouts</title>
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+  <link rel="stylesheet" href="/static/select/chosen.css">
+  <style type="text/css" media="all">
+    /* fix rtl for demo */
+    .chosen-rtl .chosen-drop { left: -9000px; }
+  </style>
+
+<link href="/static/multiple-select.css" rel="stylesheet"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates' rel='stylesheet' type='text/css'>
+<script src="/static/jquery.multiple.select.js"></script>
+<script src="/static/select/chosen.jquery.js" type="text/javascript"></script>
+<script src="/static/select/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+{% for thesis  in records %}
+{% if thesis.key.id()==id %}
+    
+<div class="header-bg">
+	<div class="wrap"> 
+		<div class="total-box">
+				<div class="total">
+					<div class="header_top">
+				     	<div class="menu">
+				     		<ul>
+						    	<li class="active"><a href="/home">Home</a></li>
+						    	<li><a href="about.html">About</a></li>
+						    	<li><a href="/thesis/home">THESES LIBRARY</a></li>
+						    	<li><a href="/student/home">STUDENT</a></li>
+						    	<li><a href="/faculty/home">FACULTY</a></li>
+						    	<li><a href="/university/home">UNIVERSITY</a></li>
+						    	<li><a href="/college/home">COLLEGE</a></li>
+						    	<li><a href="{{url}}">{{url_linktext}}</a></li>
+						    	<div class="clear"></div>
+			     			</ul>
+				     	</div>
+				     	<ul class="follow_icon">
+							<li><a href="#" style="opacity: 1;"><img src="/images/fb.png" alt=""></a></li>
+							<li><a href="#" style="opacity: 1;"><img src="/images/tw.png" alt=""></a></li>
+							<li><a href="#" style="opacity: 1;"><img src="/images/rss.png" alt=""></a></li>
+						</ul>
+		     			<div class="clear"></div>
+		     	</div>
+			     <div class="header-bottom">
+					 <div class="logo">
+						<h1><a href="index.html">Edit Thesis Information</a></h1>
+					 </div>
+					<div class="search">
+						   <form>
+						    	<input type="text" value="">
+						    	<input type="submit" value="">
+						  </form>
+					</div>
+					<div class="clear"></div> 
+				</div>
+			</div>	
+		</div>
+	 </div>
+</div>
+<div class="banner-box">
+		<div class="wrap">
+			<div class="main-top">
+				<div class="main">
+			    <div class="section group">
+				<div class="col span_2_of_3">
+				  <div class="contact-form">
+			
+
+    <h1>Edit Thesis Entry</h1>
+    <div class='form-section'>
+    <form id='MyForm2' action="/thesis/edit/{{thesis.key.id()}}" method ="post">
+    	<div>
+				<span><label>Year</label></span>
+				<select name="year" >
+					 	<option selected="selected">{{thesis.year}}</option>
+					    <option value="2011">2011</option>
+						<option value="2012">2012</option>
+					    <option value="2013">2013</option>
+						<option value="2014">2014</option>
+						<option value="2015">2015</option>
+				</select>
+		</div>
+        <div>
+				<span><label>Title</label></span>
+				<span><input type="text" name="title"  value="{{thesis.title}}" class="textbox" required></span>
+		</div>
+		<div>
+				<span> <label>Subtitle</label> </span>
+				<span><input type="text" name="sub" value="{{thesis.subtitle}}" class="textbox" required></span>
+		</div>
+		<div>
+				<span><label>Abstract</label></span>
+				<span><textarea name= "abstract" Rows="3" cols="40" required >{{thesis.abstract}} </textarea></span>
+		</div>
+		<div>
+				<em>University/College/Department</em>
+				<select data-placeholder="{{thesis.department_key.get().college_key.get().university_key.get().name }}{{thesis.department_key.get().college_key.get().name }}" style="width:350px;" class="chosen-select" multiple tabindex="6" class ="department" name="department" id="department">
+				<option value=""></option>
+
+				
+				<optgroup label="{{thesis.department_key.get().college_key.get().university_key.get().name }} {{thesis.department_key.get().college_key.get().name }}">		           
+					<option selected > {{thesis.department_key.get().college_key.get().university_key.get().name }} {{thesis.department_key.get().college_key.get().name }} {{thesis.department_key.get().name}}</option>
+
+				</optgroup>
+				 
+
+				</select>
+		</div>
+		<div>
+				<span><label>Adviser</label></span>
+				<select name="adviser" class="adviser">
+					<option selected="selected">{{thesis.adviser_key.get().name}}</option>
+					{% for thesis in records %}
+					 <option >{{thesis.adviser_key.get().name}}</option>
+					{% endfor %} 
+				</select>
+
+		</div>
+		<div>
+				<span><label>Proponents</label></span>
+				<select data-placeholder="Proponents" class ="proponents" name="proponents" multiple class='chosen-select-no-results'  style="width:400px;" tabindex="18" id="proponents" >
+				<option selected="selected">{{thesis.proponent_keys}}</option>
+					{% for entry in student %}
+						    <option>{{entry.first_name}}  {{entry.middle_name}} {{entry.last_name}}   </option>
+					{% endfor %}
+				</select>
+						    
+		</div>
+		<div>
+				<span><label>Section</label></span>
+				<select name="section" >
+						 <option selected >{{thesis.section}}</option>
+						 <option >1</option>
+						 <option >2</option>
+						 <option >3</option>
+						 <option >4</option>
+					     <option >5</option>
+			    </select>
+		</div>
+        
+        <div><input type="submit" class="button" value="Edit Thesis" > </div><br><br>
+      
+         
+    </form>
+    </div>
+
+
+    </div>
+  				</div>
+				<div class="col span_1_of_3">
+					
+      			<div class="company_address">
+				     	<h3>Local Navigation</h3>
+						    	<p> >>> View All Thesis Collections</p>
+						   		<p>	>>> Edit Thesis Entries</p>
+						   		<p> >>> Back To HomePage</p>
+				   	
+				   </div>
+				 </div>
+				 <div class="clear"></div> 
+			  </div>
+			 </div>
+			</div>
+			  
+	</div>  
+	</div>  
+
+
+   
+{% endif %}          
+{% endfor %}
+</body>
+
+ <script type="text/javascript">
+    $("#proponents").chosen({max_selected_options: 5});
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+  </script>
+
+<script type="text/javascript" src='/static/script.js'></script>
+
+
+
+
+</html>
+
+    	
