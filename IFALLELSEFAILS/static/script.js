@@ -1,5 +1,6 @@
 $(function (){
 var check = [];
+var keywords = [];
 function onFormSubmit(event){
 	
 
@@ -41,7 +42,6 @@ function onFormSubmit(event){
 }
 
 
-
 function loadAllthesis_list() {
     var thesis_list_api = '/api/thesis';
 
@@ -70,12 +70,64 @@ function loadAllthesis_list() {
 };
 
 
+function search (event)
+    {   
+        $('#searched').empty();
+        var y = $("#searcher").val().toLowerCase();
+        var searcher_api = '/api/search'
+        $.post(searcher_api, JSON.stringify({ "y": y,}), function(response)
+        {
+            if (response.status == 'OK')
+            {   
+                if ($.isEmptyObject(response.searched))
+                {
+                    $('#searched').prepend("\"No match found.\"");
+                }
+
+                for(var index in response.searched) 
+                {
+                    if (response.searched[index]['thesis_title'])
+                    {
+                        var header = response.searched[index]['university'] + "<div style='float:right'>" +response.searched[index]['thesis_year'] + "</div><br>" + response.searched[index]['college'] + "<br>" + response.searched[index]['department'];
+                        var title = response.searched[index]['thesis_title'];
+                        $('#searched').prepend("<a class='mybtn' href='/thesis/edit/"+response.searched[index]['id']+"'><li>><div>"+header+"</div><div>"+title+"</div></li></a><hr>");
+                    }
+                    else
+                    {
+                        var name = response.searched[index]['student.stud_fname'] + " " + response.searched[index]['student.stud_mname'] + " " + response.searched[index]['student.stud_lname'];
+                        $('#searched').prepend("<a class='mybtn' href='/student/page/"+response.searched[index]['id']+"'><li>" + name + "</li></a><hr>");
+                    }
+
+                }
+                return false;
+            }
+            else alert('Error 192.168.1.11, Database error');
+        })      
+    }
+
 var found = [];
 $("select option").each(function() {
   if($.inArray(this.value, found) != -1) $(this).remove();
   found.push(this.value);
 });
-       
+
+$(document).on('click', '.mybtn',function(){
+        $(this).closest('li').remove();
+    });
+    //function for keywords checkboxes
+    $('.keywords_cb').change(function() {
+        s = $(this).attr('value');
+        if ($(this).prop('checked')) 
+        {
+            keywords.push(s)
+        }
+        else {
+            var index = keywords.indexOf(s);
+            if (index >= 0) {
+              keywords.splice( index, 1 );
+            }
+        }
+    });     
 
 //No Duplication of Dropdown Options
 $(document).ready( function(){ 

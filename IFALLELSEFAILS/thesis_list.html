@@ -73,15 +73,15 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                         <div class="menu">
                             <ul>
 
-                                <li class="active"><a href="/home">Home</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="/thesis/home">THESES LIBRARY</a></li>
-                                <li><a href="/student/home">STUDENT</a></li>
-                                <li><a href="/faculty/home">FACULTY</a></li>
-                                <li><a href="/university/home">UNIVERSITY</a></li>
-                                <li><a href="/college/home">COLLEGE</a></li>
-                                <li><a href="{{url}}">{{url_linktext}}</a></li>
-                                <div class="clear"></div>
+                                <li ><a href="/home">Home</a></li>
+                          <li class="active"><a href="/thesis/home">THESES LIBRARY</a></li>
+                          <li ><a href="/student/home">STUDENT</a></li>
+                          <li ><a href="/faculty/home">FACULTY</a></li>
+                          <li><a href="/university/home">UNIVERSITY</a></li>
+                          <li ><a href="/college/home">COLLEGE</a></li>
+                          <li ><a href="/department/create">DEPARTMENT</a></li>
+                          <li ><a href="{{url}}">{{url_linktext}}</a></li>
+                          <div class="clear"></div>
                             </ul>
                         </div>
                         <ul class="follow_icon">
@@ -108,15 +108,15 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                 <div class="main">
                 <div class="section group">
                 <div class="col span_3_of_3">
-            <div class="text_align">
-                        <p style= "font-size:20px; color:#FA8D03"> How to Use the Search Engine</p>
+       <div class="text_align">
+                    <p style= "font-size:20px; color:#FA8D03"> How to Use the Search & Filter Engine</p>
                    
                       <p style= "font-size:12px; color:black" >    1. Type keywords or text from at least one of the textboxes provided for each column </p>
+                      <pre style= "font-size:12px; color:black" >      Example. "Juan Dela Cruz " above proponents column to search for thesis related to the student </pre>
                       <p style= "font-size:12px; color:black">    2. If you intend to search a thesis published in a specific year , choose from the following dropdown option  </p>
                       <p style= "font-size:12px; color:black">    3. Click "Search" Button above the options column. This will search and filter the following thesis entries  </p>
                       <p style= "font-size:12px; color:black">    Note: The table is paginated . The first page will display the search results  </p></br>
-                      <p style= "font-size:12px; color:black">    Note: This filter the entries by Year, Title, Abstract, Adviser etc.  </p></br>
-                </div>
+                                 </div>
                 <div>
 
                 <table id="table4" class="list-section">
@@ -162,7 +162,7 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                             col_0: "select",
                             on_change: false,
                             btn: true,
-                            btn_text: "SEARCH",
+                            btn_text: "SEARCH / FILTER",
                             enter_key: false,
                             mod_filter_fn: function(){ alert('Searching Entries... Press Ok to Proceed'); TF_Filter('table4'); }
                         };

@@ -34,15 +34,15 @@
 					<div class="header_top">
 				     	<div class="menu">
 				     		<ul>
-						    	<li class="active"><a href="/home">Home</a></li>
-						    	<li><a href="about.html">About</a></li>
-						    	<li><a href="/thesis/home">THESES LIBRARY</a></li>
-						    	<li><a href="/student/home">STUDENT</a></li>
-						    	<li><a href="/faculty/home">FACULTY</a></li>
-						    	<li><a href="/university/home">UNIVERSITY</a></li>
-						    	<li><a href="/college/home">COLLEGE</a></li>
-						    	<li><a href="{{url}}">{{url_linktext}}</a></li>
-						    	<div class="clear"></div>
+						    	 <li ><a href="/home">Home</a></li>
+                          <li class="active"><a href="/thesis/home">THESES LIBRARY</a></li>
+                          <li ><a href="/student/home">STUDENT</a></li>
+                          <li ><a href="/faculty/home">FACULTY</a></li>
+                          <li><a href="/university/home">UNIVERSITY</a></li>
+                          <li ><a href="/college/home">COLLEGE</a></li>
+                          <li ><a href="/department/create">DEPARTMENT</a></li>
+                          <li ><a href="{{url}}">{{url_linktext}}</a></li>
+                          <div class="clear"></div>
 			     			</ul>
 				     	</div>
 				     	<ul class="follow_icon">
@@ -104,18 +104,35 @@
 				<span><textarea name= "abstract" Rows="3" cols="40" required >{{thesis.abstract}} </textarea></span>
 		</div>
 		<div>
-				<em>University/College/Department</em>
-				<select data-placeholder="{{thesis.department_key.get().college_key.get().university_key.get().name }}{{thesis.department_key.get().college_key.get().name }}" style="width:350px;" class="chosen-select" multiple tabindex="6" class ="department" name="department" id="department">
-				<option value=""></option>
+				 <span><label>University</label></span>
+                  <select  name="univ" class="univ" id="univ">
+                
+                     {% for this in university%}                    
+                          <option >{{this.name}} </option>
+                     {% endfor %} 
+                  </select>
 
-				
-				<optgroup label="{{thesis.department_key.get().college_key.get().university_key.get().name }} {{thesis.department_key.get().college_key.get().name }}">		           
-					<option selected > {{thesis.department_key.get().college_key.get().university_key.get().name }} {{thesis.department_key.get().college_key.get().name }} {{thesis.department_key.get().name}}</option>
+                </div>
+                <div>
+                  <span><label>College</label></span>
+                  <select  name="college" class="college" id="college">
+                  
+                     {% for this in college %}                    
+                          <option >{{this.name}} </option>
+                     {% endfor %} 
+                  </select>
 
-				</optgroup>
-				 
+                </div>
+                <div>
+                  <span><label>Department</label></span>
+                  <select  name="department" class="department" id="department">
+          
+                     {% for this in department%}                    
+                          <option  >{{this.name}} </option>
+                     {% endfor %} 
+                  </select>
 
-				</select>
+                </div>
 		</div>
 		<div>
 				<span><label>Adviser</label></span>
@@ -129,12 +146,9 @@
 		</div>
 		<div>
 				<span><label>Proponents</label></span>
-				<select data-placeholder="Proponents" class ="proponents" name="proponents" multiple class='chosen-select-no-results'  style="width:400px;" tabindex="18" id="proponents" >
-				<option selected="selected">{{thesis.proponent_keys}}</option>
-					{% for entry in student %}
-						    <option>{{entry.first_name}}  {{entry.middle_name}} {{entry.last_name}}   </option>
-					{% endfor %}
-				</select>
+				{% for keys in studs%}
+                   		<input type="text" class="proponents" value="{{studs[keys].first_name}} {{studs[keys].middle_name}} {{studs[keys].last_name}}"></input></a>
+              {% endfor %}
 						    
 		</div>
 		<div>

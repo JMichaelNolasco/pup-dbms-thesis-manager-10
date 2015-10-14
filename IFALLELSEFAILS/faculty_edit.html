@@ -87,14 +87,16 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
 					<div class="header_top">
 				     	<div class="menu">
 				     		 <ul>
-			                  <li class="active"><a href="index.html">Home</a></li>
-			                  <li><a href="about.html">About</a></li>
-			                  <li><a href="/thesis/home">THESES LIBRARY</a></li>
-			                  <li><a href="/student/home">STUDENT</a></li>
-			                  <li><a href="/faculty/home">FACULTY</a></li>
-			                  <li><a href="/university/home">UNIVERSITY</a></li>
-			                  <li><a href="/college/home">COLLEGE</a></li>
-			                  <div class="clear"></div>
+			                  <li ><a href="/home">Home</a></li>
+                  <li><a href="/thesis/home">THESES LIBRARY</a></li>
+                  <li><a href="/student/home">STUDENT</a></li>
+                  <li class="active"><a href="/faculty/home">FACULTY</a></li>
+                  <li><a href="/university/home">UNIVERSITY</a></li>
+                  <li ><a href="/college/home">COLLEGE</a></li>
+                  <li ><a href="/department/create">DEPARTMENT</a></li>
+                  <li><a href="{{url}}">{{url_linktext}}</a></li>
+              
+                  <div class="clear"></div>
 			                </ul>
 							     	</div>
 				     	<ul class="follow_icon">
@@ -137,7 +139,16 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                   <span><input type="text" name="department"   value="{{f.department}}" class="textbox" required></span>
                 </div>
           
-              
+              	 <div>
+                  <span><label>Department</label></span>
+                  <select  name="department" class="college" id="college">
+                  
+                                   
+                          <option >{{f.department}} </option>
+             
+                  </select>
+
+                </div>
                 
               
           

@@ -9,6 +9,7 @@ from google.appengine.ext import ndb
 from google.appengine.api import users
 from google.appengine.ext.db import Key
 import logging
+import re
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -41,11 +42,13 @@ class Thesis(ndb.Model):
     @property
     def university_name(self):
         return self.department_key.get().college_key.get().university_key.get().name
+    
 
 class Faculty(ndb.Model):
     name = ndb.StringProperty(indexed=True)
     email = ndb.StringProperty(indexed=True)
-    department=ndb.KeyProperty(indexed=True)
+    department=ndb.StringProperty(indexed=True)
+    dept=ndb.KeyProperty(indexed=True)
     date = ndb.DateTimeProperty(auto_now_add=True)
     
     @classmethod
@@ -62,6 +65,7 @@ class Student(ndb.Model):
     date = ndb.DateTimeProperty(auto_now_add=True)
 class Department(ndb.Model):
     name = ndb.StringProperty(indexed=True)
+    chairperson = ndb.StringProperty(indexed=True)
     college_key = ndb.KeyProperty(indexed=True)
 class College(ndb.Model):
     name = ndb.StringProperty(indexed=True)
@@ -115,7 +119,7 @@ class ImportHandler(webapp2.RequestHandler):
         # logging.info(file)
         fileReader = csv.reader(file)
 
-        department_key = ndb.Key(urlsafe='agxkZXZ-bmV3LWRibXNyFwsSCkRlcGFydG1lbnQYgICAgICAwAkM')
+        department_key = ndb.Key(urlsafe='ah9kZXZ-cHVwLWRibXMtdGhlc2lzLW1hbmFnZXItMTBhchcLEgpEZXBhcnRtZW50GICAgICAgMAJDA')
         department = department_key.get()
         college = department.college_key.get()
         university = college.university_key.get()
@@ -442,13 +446,29 @@ class ThesisEdit(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('thesis_edit.html')
         self.response.write(template.render())
         
+        th_id=int(id)
+        s = Thesis.get_by_id(int(th_id))
+        studs = {}
+        for i in range(0,len(s.proponent_keys)):
+            studs[i] = s.proponent_keys[i].get()
+
+
         records = Thesis.query().order(-Thesis.date).fetch()
         thesis_id = int(id)
         student= Student.query().fetch()
+
+        university=University.query().fetch()
+        department=Department.query().fetch()
+        college=College.query().fetch()
+
         response = {
             'records': records,
             'id':thesis_id,
-            'student':student
+            'student':student,
+            "studs":studs,
+             'university': university,
+            'college': college,
+         'department': department,
         }
 
         self.response.write(template.render(response))
@@ -495,22 +515,21 @@ class ThesisDetailsPage (webapp2.RequestHandler):
         t=Thesis()
 
 
-        key=[]
-        keywords=s.title.split()
-        for word in keywords:
-            key.append(word)
 
+        keywords = re.sub('[^\w]', ' ', s.title).split()
+        #words to be removed
+        remove_articles = ['is','and','for','s','are','in','on','of','if','with','as','a','for']
+        for i in range(len(remove_articles)):
+            if remove_articles[i] in keywords:
+                keywords.remove(remove_articles[i])
+        i = 0
 
-
-       
-
-       
       
         template_values = {
                     "records": thesis,
                     "id": thesis_id,
                     "studs":studs,
-                    "key": key,
+                    'keywords':keywords
          
         }
    
@@ -590,7 +609,33 @@ class APIThesis(webapp2.RequestHandler):
 
         department_name = Department(name = department, college_key = college_name.key)
         thesis.department_key = department_name.put()
-       
+        
+        #Proponents
+
+        proponents = []
+        if self.request.get('proponents1'):
+            proponents.append(self.request.get('proponents1'))
+        if self.request.get('proponents2'):
+            proponents.append(self.request.get('proponents2'))
+        if self.request.get('proponents3'):
+            proponents.append(self.request.get('proponents3'))
+        if self.request.get('proponents4'):
+            proponents.append(self.request.get('proponents4'))
+        if self.request.get('proponents5'):
+            proponents.append(self.request.get('proponents5'))
+        
+        for i in range(0,len(proponents)):
+                name = proponents[i].title().split(' ')
+                size = len(name)
+                stud = Student()
+                if size >= 1:
+                    stud.first_name = name[0]
+                if size >= 2:
+                    stud.middle_name= name[1]
+                if size >= 3:
+                    stud.last_name= name[2]
+                thesis.proponent_keys.append(stud.put())
+        logging.info(proponents)
         thesis.put()
         
 
@@ -761,6 +806,7 @@ class FacultyCreate(webapp2.RequestHandler):
         faculty=Faculty()
         faculty.name=self.request.get("name")
         faculty.email=self.request.get("email")
+        faculty.department=self.request.get("department")
         faculty.put()
         self.redirect('/faculty/home')
 class FacultyList(webapp2.RequestHandler):
@@ -799,10 +845,12 @@ class FacultyEdit(webapp2.RequestHandler):
         faculty= Faculty.query().fetch()
         thesis_id = int(id)
         student= Student.query().fetch()
+        department=Department.query().fetch()
         values = {
 
             'id':thesis_id,
             'faculty':faculty,
+            'department':department
         }
 
         self.response.write(template.render(values))  
@@ -999,6 +1047,47 @@ class CollegeEdit(webapp2.RequestHandler):
         college.put()
         self.redirect('/college/home')
 
+class DepartmentCreate(webapp2.RequestHandler):
+    def get(self):
+   
+        loggedin_user = users.get_current_user()
+        if loggedin_user:
+            user_key = ndb.Key('User', loggedin_user.user_id())
+            user=user_key.get()
+            if user:
+                template = JINJA_ENVIRONMENT.get_template('department_create.html')
+                url = users.create_logout_url('/login') 
+                url_linktext = 'Logout' + ' ' + users.get_current_user().email()
+                thesis= Thesis.query().fetch()
+                student= Student.query().fetch()
+                adviser= Faculty.query().fetch()
+                university=University.query().fetch()
+                department=Department.query().fetch()
+                college=College.query().fetch()
+                template_values = {
+                   'url': url,
+                   'url_linktext': url_linktext,
+                   'student':student,
+                   'adviser': adviser,
+                   'thes': thesis,
+                   'university': university,
+                   'college': college,
+                   'department': department,
+              
+                }
+                self.response.write(template.render(template_values))  
+            else:
+                self.redirect('/register')
+        else:
+            self.redirect('/login')        
+
+    def post(self):
+        department=Department()
+        department.name=self.request.get("name")
+        department.chairperson=self.request.get("chairperson")
+        department.put()
+        self.redirect('/home')
+
 
 app = webapp2.WSGIApplication([
 
@@ -1052,6 +1141,8 @@ app = webapp2.WSGIApplication([
     ('/college/edit/(\d+)',CollegeEdit),
     ('/college/delete/(\d+)',CollegeDelete),
     ('/college/(\d+)',CollegeDetailsPage),
+
+    ('/department/create',DepartmentCreate),
  
 
  

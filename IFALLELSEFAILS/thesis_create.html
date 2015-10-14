@@ -36,15 +36,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <div class="header_top">
               <div class="menu">
                 <ul>
-                  <li class="active"><a href="/home">Home</a></li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="/thesis/home">THESES LIBRARY</a></li>
-                  <li><a href="/student/home">STUDENT</a></li>
-                  <li><a href="/faculty/home">FACULTY</a></li>
-                  <li><a href="/university/home">UNIVERSITY</a></li>
-                  <li><a href="/college/home">COLLEGE</a></li>
-                  <li><a href="{{url}}">{{url_linktext}}</a></li>
-                  <div class="clear"></div>
+                  <li ><a href="/home">Home</a></li>
+                          <li class="active"><a href="/thesis/home">THESES LIBRARY</a></li>
+                          <li ><a href="/student/home">STUDENT</a></li>
+                          <li ><a href="/faculty/home">FACULTY</a></li>
+                          <li><a href="/university/home">UNIVERSITY</a></li>
+                          <li ><a href="/college/home">COLLEGE</a></li>
+                          <li ><a href="/department/create">DEPARTMENT</a></li>
+                          <li ><a href="{{url}}">{{url_linktext}}</a></li>
+                          <div class="clear"></div>
                 </ul>
               </div>
               <ul class="follow_icon">
@@ -139,14 +139,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
 
                 <div>
-
                   <span><label>Proponents</label></span>
-                  <select data-placeholder="Proponents" class ="proponents" name="proponents" multiple class='chosen-select-no-results'  style="width:400px;" tabindex="18" id="proponents" >
-                  {% for entry in student %}
-                          <option>{{entry.first_name}}  {{entry.middle_name}} {{entry.last_name}}   </option>
-                        {% endfor %}
-                      </select>
+                  <span><input type="text" name="proponents1"  placeholder="First_Name Middle_Name Last_Name"  class="textbox" required></span>
+                  <span><input type="text" name="proponents2"  placeholder="First_Name Middle_Name Last_Name"  class="textbox" ></span>
+                  <span><input type="text" name="proponents3"  placeholder="First_Name Middle_Name Last_Name"  class="textbox" ></span>
+                  <span><input type="text" name="proponents4"  placeholder="First_Name Middle_Name Last_Name"  class="textbox"></span>
+                  <span><input type="text" name="proponents5"  placeholder="First_Name Middle_Name Last_Name"  class="textbox" ></span>
                 </div>
+                
+                <div>
+
                   <span><label>Section</label></span>
                   <select name="section" >
                         <option value="1">1</option>
@@ -162,16 +164,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
               </form>
           </div>
           </div>
-        <div class="col span_1_of_3">
-          
-            <div class="company_address">
-              <h3>Local Navigation</h3>
-                  <p> >>> View All Thesis Collections</p>
-                  <p> >>> Edit Thesis Entries</p>
-                  <p> >>> Back To HomePage</p>
-            
-           </div>
-         </div>
+       
          <div class="clear"></div> 
         </div>
        </div>
@@ -184,7 +177,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </body>
 
  <script type="text/javascript">
-    $("#proponents").chosen({max_selected_options: 5});
+    $(".proponents").chosen({max_selected_options: 1});
+
     var config = {
       '.chosen-select'           : {},
       '.chosen-select-deselect'  : {allow_single_deselect:true},

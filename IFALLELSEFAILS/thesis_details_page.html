@@ -97,15 +97,15 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
 					<div class="header_top">
 				     	<div class="menu">
 				     		<ul>
-						    	<li class="active"><a href="/home">Home</a></li>
-				                  <li><a href="about.html">About</a></li>
-				                  <li><a href="/thesis/home">THESES LIBRARY</a></li>
-				                  <li><a href="/student/home">STUDENT</a></li>
-				                  <li><a href="/faculty/home">FACULTY</a></li>
-				                  <li><a href="/university/home">UNIVERSITY</a></li>
-				                  <li><a href="/college/home">COLLEGE</a></li>
-				                  <li><a href="{{url}}">{{url_linktext}}</a></li>
-						    	<div class="clear"></div>
+						    	 <li ><a href="/home">Home</a></li>
+                          <li class="active"><a href="/thesis/home">THESES LIBRARY</a></li>
+                          <li ><a href="/student/home">STUDENT</a></li>
+                          <li ><a href="/faculty/home">FACULTY</a></li>
+                          <li><a href="/university/home">UNIVERSITY</a></li>
+                          <li ><a href="/college/home">COLLEGE</a></li>
+                          <li ><a href="/department/create">DEPARTMENT</a></li>
+                          <li ><a href="{{url}}">{{url_linktext}}</a></li>
+                          <div class="clear"></div>
 			     			</ul>
 				     	</div>
 				     	<ul class="follow_icon">
@@ -179,55 +179,24 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
 
 					
 					    </form>
-				  </div>
+					     
+			  </div>
   				</div>
-				
-				 <div class="clear"></div> 
-			  	
-
 				  <div class="col span_1_of_3">
-      					<div  data-href="http://localhost:8080/thesis/{{thesis.key.id()}}" class="fb-comments" data-numposts="10"></div>
-				 </div>
+				  
+      					<div  data-href="http://localhost:8080/thesis/{{thesis.key.id()}}" class="fb-comments" data-numposts="5"></div>
 
-				 
-				  			
+
+				 </div>
+				 <div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endif %}          
 {% endfor %}			
-                <table id="table4" class="list-section" style"display:none">
-                <tr>
-                    <th>Year</th>
-                    <th>University</th>
-                    <th>College</th>
-                    <th>Department</th>
-                    <th>Title</th>
-                    <th>Abstract</th>
-                    <th>Adviser</th>
-
-                    <th>Options</th>
-                </tr>
-               
-
-             	{% for thesis  in records %}
-                <tr>
-                    <td> {{thesis.year}}</td>
-                    <td> {{thesis.university_name}}</td>
-                    <td>{{thesis.college_name}}</td>
-                    <td> {{thesis.department_name}}</td>
-                    <td> {{thesis.title}} </td>
-                    <td> {{thesis.abstract}} </td>
-                    <td> {{thesis.adviser_key.get().name}} </td>
-                                   
-                    <td> <a href ="/thesis/{{thesis.key.id()}}"> View </a></br>
-                         <a href ="/thesis/edit/{{thesis.key.id()}}"> Edit </a></br>
-                         
-                         <a href ="/thesis/delete/{{thesis.key.id()}}"> Delete </a>
-                    </td>
-                </tr>
-                 
- 				{% endfor %}
-                </table>
               
-         
 
 <script type=text/javascript>
 (function($){
@@ -262,11 +231,7 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
 	}
 }(jQuery));		
 </script>
-</div>
-</div>
-</div>
-			  </div>
-			</div>
+
 
 </body>
 

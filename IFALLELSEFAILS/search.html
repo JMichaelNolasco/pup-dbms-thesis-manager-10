@@ -84,15 +84,16 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                         <div class="menu">
                             <ul>
 
-                                <li class="active"><a href="/home">Home</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="/thesis/home">THESES LIBRARY</a></li>
-                                <li><a href="/student/home">STUDENT</a></li>
-                                <li><a href="/faculty/home">FACULTY</a></li>
-                                <li><a href="/university/home">UNIVERSITY</a></li>
-                                <li><a href="/college/home">COLLEGE</a></li>
-                                <li><a href="{{url}}">{{url_linktext}}</a></li>
-                                <div class="clear"></div>
+                               <li ><a href="/home">Home</a></li>
+                          <li><a href="/thesis/home">THESES LIBRARY</a></li>
+                          <li><a href="/student/home">STUDENT</a></li>
+                          <li ><a href="/faculty/home">FACULTY</a></li>
+                          <li><a href="/university/home">UNIVERSITY</a></li>
+                          <li ><a href="/college/home">COLLEGE</a></li>
+                          <li ><a href="/department/create">DEPARTMENT</a></li>
+                          <li class="active"><a href="{{url}}">{{url_linktext}}</a></li>
+                      
+                          <div class="clear"></div>
                             </ul>
                         </div>
                         <ul class="follow_icon">
@@ -119,6 +120,11 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                                     
                                     
                                   </select><br>
+
+                                    
+                                    
+                                    
+                                  </select><br>
                                 
 
 
@@ -139,7 +145,7 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                 <div class="section group">
                 <div class="col span_3_of_3">
                 <div class="text_align">
-        		        <p style= "font-size:20px; color:#FA8D03"> How to Use the Search Engine</p>
+        		        <p style= "font-size:20px; color:#FA8D03"> How to Use the Search & Filter Engine</p>
                    
                       <p style= "font-size:12px; color:black" >    1. Type keywords or text from at least one of the textboxes provided for each column </p>
                       <pre style= "font-size:12px; color:black" >      Example. "Juan Dela Cruz " above proponents column to search for thesis related to the student </pre>
@@ -207,7 +213,7 @@ td{ padding:2px; border-bottom:1px solid #ccc; border-right:1px solid #ccc; }
                             col_0: "select",
                             on_change: false,
                             btn: true,
-                            btn_text: "SEARCH",
+                            btn_text: "SEARCH/FILTER",
                             enter_key: false,
                             mod_filter_fn: function(){ alert('Searching Entries... Press Ok to Proceed'); TF_Filter('table4'); }
                         };
